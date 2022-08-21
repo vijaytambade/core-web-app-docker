@@ -10,11 +10,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'sc-acratinkh612'
-  imageRepository: 'atinguptacorewebappdocker'
-  containerRegistry: 'acratinkh612.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/core-web-app-docker/Dockerfile'
-  tag: '$(Build.BuildId)'
+  dockerRegistryServiceConnection: 'sc-acr-ag'
+  imageRepository: 'dotnetapp'
+  containerRegistry: 'acrag612.azurecr.io'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -28,10 +26,11 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: SnykSecurityScan@1
+    - task: Docker@2
+      displayName: Build and push an image to container registry
       inputs:
-        serviceConnectionEndpoint: 'sc-synk'
-        testType: 'app'
-        monitorWhen: 'always'
-        failOnIssues: true
-    
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: 'latest'
