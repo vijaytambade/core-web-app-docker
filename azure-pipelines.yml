@@ -34,3 +34,13 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: 'latest'
+    
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Azure Pass - Sponsorship(3ee584d2-9742-4a05-93a9-26b5a16709ec)'
+        appType: 'webAppContainer'
+        WebAppName: 'agwebappdockerdevops'
+        DockerNamespace: 'acrag612.azurecr.io'
+        DockerRepository: 'dotnetapp'
+        DockerImageTag: 'latest'
