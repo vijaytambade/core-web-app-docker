@@ -44,3 +44,9 @@ stages:
         DockerNamespace: 'acrag612.azurecr.io'
         DockerRepository: 'dotnetapp'
         DockerImageTag: 'latest'
+    
+    - task: AzureAppServiceManage@0
+      inputs:
+        azureSubscription: 'Azure Pass - Sponsorship(3ee584d2-9742-4a05-93a9-26b5a16709ec)'
+        Action: 'Restart Azure App Service'
+        WebAppName: 'agwebappdockerdevops'
